@@ -15,6 +15,9 @@ class CactusPlacementRule(block: Block) : BlockPlacementRule(block) {
         return null
     }
 
+    // a player-built column collapses whole; the default range cuts it at 10 (same fix as bamboo/scaffolding)
+    override fun maxUpdateDistance(): Int = 32
+
     override fun blockUpdate(updateState: UpdateState): Block {
         if (checkEligibility(updateState.instance, updateState.blockPosition)) return updateState.currentBlock
         DroppedItemFactory.maybeDrop(updateState)
@@ -26,7 +29,8 @@ class CactusPlacementRule(block: Block) : BlockPlacementRule(block) {
         if (plantableOn.none { it.compare(blockBelow) } && !blockBelow.compare(Block.CACTUS)) return false
 
         for (direction in Direction.HORIZONTAL) {
-            if (!instance.getBlock(position.add(direction.vec())).isAir) return false
+            // vanilla refuses solid-material neighbors only (BlockCactus.canBlockStay) - water/torches beside cactus are fine
+            if (instance.getBlock(position.add(direction.vec())).isSolid) return false
         }
 
         return true

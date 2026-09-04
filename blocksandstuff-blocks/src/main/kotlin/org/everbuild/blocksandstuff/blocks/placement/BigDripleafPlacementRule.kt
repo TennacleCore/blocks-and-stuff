@@ -34,7 +34,7 @@ class BigDripleafPlacementRule(block: Block) : BlockPlacementRule(block) {
         if (blockBelow.compare(Block.BIG_DRIPLEAF)) {
             val direction = blockBelow.getProperty("facing")
             val bottomInsideWater = blockBelow.getProperty("waterlogged").toBoolean()
-            val instance = placementState.instance as Instance
+            val instance = placementState.instance as Block.Setter
 
             instance.setBlock(
                 placementState.placePosition.sub(0.0, 1.0, 0.0),

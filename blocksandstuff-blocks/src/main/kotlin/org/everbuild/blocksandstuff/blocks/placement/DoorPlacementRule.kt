@@ -11,7 +11,7 @@ import org.everbuild.blocksandstuff.common.utils.rotateL
 import org.everbuild.blocksandstuff.common.utils.rotateR
 
 class DoorPlacementRule(baseDoorBlock: Block) : BlockPlacementRule(baseDoorBlock) {
-    private fun countSolidFaces(instance: Instance, centerPos: Point, horizontalDirection: BlockFace): Int {
+    private fun countSolidFaces(instance: Block.Getter, centerPos: Point, horizontalDirection: BlockFace): Int {
         var solidFaces = 0
 
         if (instance.getBlock(centerPos.relative(horizontalDirection)).isSolid) {
@@ -33,7 +33,7 @@ class DoorPlacementRule(baseDoorBlock: Block) : BlockPlacementRule(baseDoorBlock
         return solidFaces
     }
 
-    private fun getHingeSide(instance: Instance, placePos: Point, cursorPos: Point?, playerFacing: BlockFace): String {
+    private fun getHingeSide(instance: Block.Getter, placePos: Point, cursorPos: Point?, playerFacing: BlockFace): String {
         val doorFrontDirection = playerFacing.oppositeFace
 
         val leftOfDoor = BlockFace.fromDirection(doorFrontDirection.toDirection().rotateL())
@@ -112,7 +112,7 @@ class DoorPlacementRule(baseDoorBlock: Block) : BlockPlacementRule(baseDoorBlock
         val facing = placementState.getNearestHorizontalLookingDirection().opposite()
 
         val hinge = getHingeSide(
-            instance as Instance,
+            instance,
             placePos,
             placementState.cursorPosition,
             BlockFace.fromDirection(facing)
@@ -135,7 +135,7 @@ class DoorPlacementRule(baseDoorBlock: Block) : BlockPlacementRule(baseDoorBlock
             .withProperty("open", open)
             .withProperty("powered", powered)
 
-        instance.setBlock(upperPos, upperDoorBlock)
+        (instance as Block.Setter).setBlock(upperPos, upperDoorBlock)
 
         return lowerDoorBlock
     }
@@ -162,7 +162,7 @@ class DoorPlacementRule(baseDoorBlock: Block) : BlockPlacementRule(baseDoorBlock
 
         if (!neighborBlock.compare(updateState.currentBlock) || neighborBlock.getProperty("half") != expectedOtherHalf) {
             if (neighborBlock.compare(updateState.currentBlock)) {
-                (instance as Instance).setBlock(neighborPos, Block.AIR)
+                (instance as Block.Setter).setBlock(neighborPos, Block.AIR)
             }
             return Block.AIR
         }
@@ -172,7 +172,7 @@ class DoorPlacementRule(baseDoorBlock: Block) : BlockPlacementRule(baseDoorBlock
                 .isFaceFull(BlockFace.TOP)
         ) {
             DroppedItemFactory.maybeDrop(updateState)
-            (instance as Instance).setBlock(neighborPos, Block.AIR)
+            (instance as Block.Setter).setBlock(neighborPos, Block.AIR)
             instance.setBlock(updateState.blockPosition, Block.AIR)
         }
 

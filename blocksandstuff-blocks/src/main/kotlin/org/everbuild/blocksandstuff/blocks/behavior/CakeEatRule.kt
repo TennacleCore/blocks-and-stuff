@@ -5,6 +5,7 @@ import net.minestom.server.coordinate.BlockVec
 import net.minestom.server.event.EventDispatcher
 import net.minestom.server.instance.block.Block
 import net.minestom.server.instance.block.BlockHandler
+import org.everbuild.blocksandstuff.blocks.util.InteractionWorlds
 import net.minestom.server.registry.TagKey
 import org.everbuild.blocksandstuff.blocks.event.CakeEatEvent
 
@@ -31,12 +32,12 @@ class CakeEatRule(val block: Block) : BlockHandler {
             )
         ) {
             if (currentSlices < (maxSlices - 1)) {
-                interaction.instance.setBlock(
+                InteractionWorlds.writer(interaction).setBlock(
                     interaction.blockPosition,
                     interaction.block.withProperty("bites", (currentSlices + 1).toString())
                 )
             } else {
-                interaction.instance.setBlock(interaction.blockPosition, Block.AIR)
+                InteractionWorlds.writer(interaction).setBlock(interaction.blockPosition, Block.AIR)
             }
         }
         return false

@@ -7,6 +7,7 @@ import net.minestom.server.coordinate.BlockVec
 import net.minestom.server.event.EventDispatcher
 import net.minestom.server.instance.block.Block
 import net.minestom.server.instance.block.BlockHandler
+import org.everbuild.blocksandstuff.blocks.util.InteractionWorlds
 import org.everbuild.blocksandstuff.blocks.event.CakeEatEvent
 import org.everbuild.blocksandstuff.blocks.placement.CandlePlacementRule
 import org.everbuild.blocksandstuff.common.item.DroppedItemFactory
@@ -24,7 +25,7 @@ class CandleCakeRule(val block: Block) : BlockHandler {
                 BlockVec(interaction.blockPosition)
             )
         ) {
-            interaction.instance.setBlock(
+            InteractionWorlds.writer(interaction).setBlock(
                 interaction.blockPosition,
                 Block.CAKE
                     .withDefaultHandler()

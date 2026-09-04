@@ -53,7 +53,7 @@ abstract class AbstractRailPlacementRule(block: Block) : BlockPlacementRule(bloc
             if (!sideBlock.compare(Block.RAIL, Block.Comparator.ID) && !shape.isStraight()) return@let
             val ownShape =
                 RailShape.fromSides(listOfNotNull(lockedDirection, rotated).map { BlockFace.fromDirection(it) })
-            (placementState.instance as Instance).setBlock(
+            (placementState.instance as Block.Setter).setBlock(
                 sidePos,
                 sideBlock.withProperty("shape", shape.toString())
             )
@@ -118,7 +118,7 @@ abstract class AbstractRailPlacementRule(block: Block) : BlockPlacementRule(bloc
             val lowerShape = lowerBlock.getProperty("shape")?.let { RailShape.fromString(it) } ?: continue
             if (!lowerShape.sides.any { mutShape.sides.contains(it) }) continue
             if (!lowerShape.isStraight() || lowerShape.isAscending()) continue
-            (placementState.instance as Instance).setBlock(
+            (placementState.instance as Block.Setter).setBlock(
                 position,
                 lowerBlock
                     .withProperty("shape", RailShape.getAscendingTowards(face.oppositeFace).toString())

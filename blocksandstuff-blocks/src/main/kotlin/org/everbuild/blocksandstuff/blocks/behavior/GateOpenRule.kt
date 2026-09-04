@@ -3,6 +3,7 @@ package org.everbuild.blocksandstuff.blocks.behavior
 import net.kyori.adventure.key.Key
 import net.minestom.server.instance.block.Block
 import net.minestom.server.instance.block.BlockHandler
+import org.everbuild.blocksandstuff.blocks.util.InteractionWorlds
 import net.minestom.server.utils.Direction
 import org.everbuild.blocksandstuff.common.utils.getNearestLookingDirection
 
@@ -18,7 +19,7 @@ class GateOpenRule(private val block: Block) : BlockHandler {
         val allowedDirections = getAllowedDirections(interaction.block)
         val direction = interaction.getNearestLookingDirection(allowedDirections).opposite()
         val bool = (!interaction.block.getProperty("open").toBoolean()).toString()
-        interaction.instance.setBlock(interaction.blockPosition,
+        InteractionWorlds.writer(interaction).setBlock(interaction.blockPosition,
             interaction.block
                 .withProperty("open", bool)
                 .withProperty("facing", direction.toString().lowercase())

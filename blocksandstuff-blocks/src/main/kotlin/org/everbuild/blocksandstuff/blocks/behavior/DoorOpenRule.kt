@@ -3,13 +3,14 @@ package org.everbuild.blocksandstuff.blocks.behavior
 import net.kyori.adventure.key.Key
 import net.minestom.server.instance.block.Block
 import net.minestom.server.instance.block.BlockHandler
+import org.everbuild.blocksandstuff.blocks.util.InteractionWorlds
 
 class DoorOpenRule(private val baseDoorBlock: Block) : BlockHandler {
     override fun getKey(): Key {
         return baseDoorBlock.key()
     }
     override fun onInteract(interaction: BlockHandler.Interaction): Boolean {
-        val instance = interaction.instance
+        val instance = InteractionWorlds.of(interaction)
         val clickedPosition = interaction.blockPosition
         val clickedBlock = interaction.block
 
@@ -47,8 +48,9 @@ class DoorOpenRule(private val baseDoorBlock: Block) : BlockHandler {
             .withProperty("open", newOpen.toString())
             .withProperty("powered", "false")
 
-        instance.setBlock(clickedPosition, updatedBlockState.withProperty("half", half))
-        instance.setBlock(otherHalfPos, updatedBlockState.withProperty("half", if (half == "lower") "upper" else "lower"))
+        val writer = InteractionWorlds.writer(interaction)
+        writer.setBlock(clickedPosition, updatedBlockState.withProperty("half", half))
+        writer.setBlock(otherHalfPos, updatedBlockState.withProperty("half", if (half == "lower") "upper" else "lower"))
 
         return false
     }

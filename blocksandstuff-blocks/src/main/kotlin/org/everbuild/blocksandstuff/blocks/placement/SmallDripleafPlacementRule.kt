@@ -20,7 +20,7 @@ class SmallDripleafPlacementRule(block: Block) : BlockPlacementRule(block) {
         val direction = placementState.getNearestHorizontalLookingDirection()
         val bottomInsideWater = currentBlock.isWater()
         val topInsideWater = blockAbove.isWater()
-        val instance = placementState.instance as Instance
+        val instance = placementState.instance as Block.Setter
 
         if (!blockAbove.isWater() && !blockAbove.isAir) return currentBlock
         if (plantableOn.any { it.compare(blockBelow) }) {
@@ -64,14 +64,13 @@ class SmallDripleafPlacementRule(block: Block) : BlockPlacementRule(block) {
         return updateState.currentBlock
     }
 
-    private fun setUpperBlock(instance: Instance, position: Point, direction: String, waterlogged: Boolean) {
+    private fun setUpperBlock(instance: Block.Setter, position: Point, direction: String, waterlogged: Boolean) {
         instance.setBlock(
             position,
             Block.SMALL_DRIPLEAF
                 .withProperty("facing", direction)
                 .withProperty("half", "upper")
-                .withProperty("waterlogged", waterlogged.toString()),
-            false
+                .withProperty("waterlogged", waterlogged.toString())
         )
     }
 }

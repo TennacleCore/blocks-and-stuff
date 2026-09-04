@@ -15,7 +15,7 @@ class BedPlacementRule(block: Block) : BlockPlacementRule(block) {
             return null
         }
 
-        val instance = placementState.instance as Instance
+        val instance = placementState.instance as Block.Setter
 
         instance.setBlock(
             additionalReplacementBlock,

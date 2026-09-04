@@ -103,7 +103,7 @@ class ChestPlacementRule(block: Block) : BlockPlacementRule(block) {
 
         val connectingBlock = placementState.instance.getBlock(blockPos)
 
-        (placementState.instance as Instance).setBlock(
+        (placementState.instance as Block.Setter).setBlock(
             blockPos, connectingBlock
                 .withProperty("type", otherType)
         )

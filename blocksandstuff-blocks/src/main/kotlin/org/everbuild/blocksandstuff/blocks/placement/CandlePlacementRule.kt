@@ -12,7 +12,7 @@ class CandlePlacementRule(block: Block) : BlockPlacementRule(block) {
         val positionBelow = placementState.placePosition.sub(0.0, 1.0, 0.0)
         val blockBelow = placementState.instance.getBlock(positionBelow)
         if (blockBelow.compare(Block.CAKE, Block.Comparator.ID)) {
-            (placementState.instance as Instance).setBlock(
+            (placementState.instance as Block.Setter).setBlock(
                 positionBelow,
                 CANDLE_CAKE[block]?.withDefaultHandler() ?: return null
             )

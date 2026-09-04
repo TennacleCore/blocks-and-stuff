@@ -3,6 +3,7 @@ package org.everbuild.blocksandstuff.blocks.behavior
 import net.kyori.adventure.key.Key
 import net.minestom.server.instance.block.Block
 import net.minestom.server.instance.block.BlockHandler
+import org.everbuild.blocksandstuff.blocks.util.InteractionWorlds
 
 class WoodenTrapDoorOpenRule(private val block: Block) : BlockHandler {
     override fun getKey(): Key = block.key()
@@ -15,7 +16,7 @@ class WoodenTrapDoorOpenRule(private val block: Block) : BlockHandler {
         } else {
             "true"
         }
-        interaction.instance.setBlock(interaction.blockPosition, interaction.block.withProperty("open", bool))
+        InteractionWorlds.writer(interaction).setBlock(interaction.blockPosition, interaction.block.withProperty("open", bool))
         return false
     }
 }

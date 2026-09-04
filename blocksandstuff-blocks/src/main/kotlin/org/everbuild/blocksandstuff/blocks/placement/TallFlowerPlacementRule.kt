@@ -28,7 +28,7 @@ class TallFlowerPlacementRule (baseFlowerBlock: Block) : BlockPlacementRule(base
         val upperFlowerBlock = placementState.block
             .withProperty("half", "upper")
 
-        (instance as Instance).setBlock(upperPos, upperFlowerBlock)
+        (instance as Block.Setter).setBlock(upperPos, upperFlowerBlock)
 
         return lowerFlowerBlock
     }

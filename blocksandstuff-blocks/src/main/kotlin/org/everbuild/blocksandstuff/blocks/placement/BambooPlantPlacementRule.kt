@@ -13,7 +13,7 @@ class BambooPlantPlacementRule(block: Block) : BlockPlacementRule(block) {
     override fun blockPlace(placementState: PlacementState): Block? {
         val positionBelow = placementState.placePosition.sub(0.0, 1.0, 0.0)
         val blockBelow = placementState.instance.getBlock(positionBelow)
-        val instance = placementState.instance as Instance
+        val instance = placementState.instance as Block.Setter
         if (bamboo.any { blockBelow.compare(it) }) {
             if (blockBelow.compare(Block.BAMBOO_SAPLING)) {
                 instance.setBlock(positionBelow, Block.BAMBOO)

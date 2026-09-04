@@ -11,7 +11,8 @@ import org.everbuild.blocksandstuff.common.utils.getNearestHorizontalLookingDire
 
 class ScaffoldingPlacementRule(block: Block) : BlockPlacementRule(block) {
     override fun blockPlace(placementState: PlacementState): Block? {
-        val instance = placementState.instance as Instance
+        // needs entity spawning; a non-Instance view (a shard) places inert instead of crashing
+        val instance = placementState.instance as? Instance ?: return placementState.block
         val placePos = BlockVec(placementState.placePosition)
         val currentBlock = instance.getBlock(placementState.placePosition)
         val face = placementState.blockFace ?: return placementState.block
@@ -111,7 +112,7 @@ class ScaffoldingPlacementRule(block: Block) : BlockPlacementRule(block) {
     }
 
     override fun blockUpdate(updateState: UpdateState): Block? {
-        val instance = updateState.instance as Instance
+        val instance = updateState.instance as? Instance ?: return updateState.currentBlock
         val position = BlockVec(updateState.blockPosition)
         val hasBottomSupport = hasBottomSupport(instance, position)
         val distance = getDistanceToNearestBottomSupported(instance, position, hasBottomSupport)
