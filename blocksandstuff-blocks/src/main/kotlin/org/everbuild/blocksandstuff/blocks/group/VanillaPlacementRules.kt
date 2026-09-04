@@ -1,5 +1,6 @@
 package org.everbuild.blocksandstuff.blocks.group
 
+import net.minestom.server.MinecraftServer
 import net.minestom.server.instance.block.Block
 import net.minestom.server.instance.block.rule.BlockPlacementRule
 import org.everbuild.blocksandstuff.blocks.group.block.BlockGroup
@@ -35,6 +36,17 @@ object VanillaPlacementRules : VanillaRuleset<PlacementGroup, Function<Block, Bl
         group(
             byTag("minecraft:slabs"),
             ::SlabPlacementRule,
+        )
+
+    val GRAVITY =
+        group(
+            all(
+                byBlock(Block.SAND),
+                byBlock(Block.RED_SAND),
+                byBlock(Block.GRAVEL),
+                if (MinecraftServer.PROTOCOL_VERSION < 776) byTag("minecraft:concrete_powder") else byTag("minecraft:concrete_powders"),
+            ),
+            ::GravityBlockPlacementRule,
         )
 
     val VERTICALLYROTATED =
