@@ -113,6 +113,13 @@ object VanillaBlockBehaviour : VanillaRuleset<BehaviourGroup, (Block) -> BlockHa
         ::DoorOpenRule
     )
 
+    // <@AI_UNREVIEWED>
+    val BEDS = group(
+        byTag("minecraft:beds"),
+        ::BedUseRule
+    )
+    // </<@AI_UNREVIEWED>
+
     val SIGNS = group(
         byTag("minecraft:all_signs"),
         ::SignEditRule
