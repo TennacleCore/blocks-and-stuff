@@ -120,6 +120,17 @@ object VanillaBlockBehaviour : VanillaRuleset<BehaviourGroup, (Block) -> BlockHa
     )
     // </<@AI_UNREVIEWED>
 
+    // <@AI_UNREVIEWED>
+    val CHESTS = group(
+        all(
+            byBlock(Block.CHEST),
+            byBlock(Block.TRAPPED_CHEST),
+            byBlock(Block.ENDER_CHEST),
+        ),
+        ::ChestUseRule
+    )
+    // </<@AI_UNREVIEWED>
+
     val SIGNS = group(
         byTag("minecraft:all_signs"),
         ::SignEditRule
