@@ -17,8 +17,8 @@ import org.mockito.kotlin.doReturn
 import org.mockito.kotlin.mock
 
 // <@AI_UNREVIEWED>
-internal class ChestUseRuleTest {
-    private val rule = ChestUseRule(Block.CHEST)
+internal class ContainerUseRuleTest {
+    private val rule = ContainerUseRule(Block.CHEST)
 
     @BeforeEach
     fun setUp() {

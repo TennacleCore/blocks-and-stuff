@@ -6,10 +6,10 @@ import net.minestom.server.instance.block.BlockHandler
 
 // <@AI_UNREVIEWED>
 /**
- * A chest consumes a click the way vanilla's open does: a block only lands off it when the player sneaks
- * with something in the clicking hand. Nothing opens yet.
+ * A container consumes a click the way vanilla's open does: a block only lands off it when the player sneaks
+ * with something in the clicking hand. Opening is a mechanic, not a placement rule; it lives elsewhere.
  */
-class ChestUseRule(private val block: Block) : BlockHandler {
+class ContainerUseRule(private val block: Block) : BlockHandler {
     override fun getKey(): Key {
         return block.key()
     }

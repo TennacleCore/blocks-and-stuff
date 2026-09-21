@@ -121,13 +121,15 @@ object VanillaBlockBehaviour : VanillaRuleset<BehaviourGroup, (Block) -> BlockHa
     // </<@AI_UNREVIEWED>
 
     // <@AI_UNREVIEWED>
-    val CHESTS = group(
+    val CONTAINERS = group(
         all(
             byBlock(Block.CHEST),
             byBlock(Block.TRAPPED_CHEST),
             byBlock(Block.ENDER_CHEST),
+            byBlock(Block.BARREL),
+            byTag("minecraft:shulker_boxes"),
         ),
-        ::ChestUseRule
+        ::ContainerUseRule
     )
     // </<@AI_UNREVIEWED>
 
