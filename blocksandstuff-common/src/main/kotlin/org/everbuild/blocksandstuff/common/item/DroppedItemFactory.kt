@@ -23,8 +23,11 @@ interface DroppedItemFactory {
         }
 
         fun maybeDrop(state: UpdateState) {
+            // a block getter that is not the instance (a per-viewer or per-game view) has nowhere to drop into;
+            // the rule still takes the block, as ScaffoldingPlacementRule does
+            val instance = state.instance as? Instance ?: return
             if (doDropItems) {
-                current.spawn(state.instance as Instance, state.blockPosition, state.currentBlock)
+                current.spawn(instance, state.blockPosition, state.currentBlock)
             }
         }
 
